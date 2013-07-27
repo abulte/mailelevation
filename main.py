@@ -39,7 +39,8 @@ def mail_receive():
         if status == 'KO':
             return make_response('Something bad happened : %s' % resp, 500)
         elif status == 'OK':
-            msg = Message("Elevation profile", recipients=[mfrom], bcc='alexandre@bulte.net')
+            msg = Message("Elevation profile", sender='alexandre@bulte.net', 
+                recipients=[mfrom], bcc='alexandre@bulte.net')
             msg.body = resp
             mail.send(msg)
     else:
