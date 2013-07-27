@@ -15,18 +15,17 @@ app.debug = True
 @app.route('/incoming/email', methods=['POST'])
 def mail_receive():
     app.logger.info('-- Received incoming email --')
-    app.logger.info(request.form)
+    app.logger.info(request.form['headers'])
     app.logger.info(request.files)
-    app.logger.info('-----------------------------')
     
-    mfrom = request.form['headers'].get('From')
+    mfrom = request.form['headers'].get('From', False)
+    app.logger.debug(mfrom)
     app.logger.debug(request.files.get('attachments'))
     if request.files.get('attachments', False):
         if len(request.files.get('attachments')) > 0:
             app.logger.debug(request.files.get('attachments'))
     else:
         pass
-    app.logger.debug(mfrom)
     return 'OK'
 
 @app.route('/')
