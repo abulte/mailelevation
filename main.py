@@ -21,15 +21,12 @@ app.config.update(
     MAIL_SERVER = 'smtp.mandrillapp.com',
     MAIL_PORT = 465,
     MAIL_USE_SSL = True,
-    MAIL_USERNAME = os.getenv('MANDRILL_USERNAME'),
-    MAIL_PASSWORD = os.getenv('MANDRILL_APIKEY'),
+    MAIL_USERNAME = 'app17157822@heroku.com',
+    # MAIL_USERNAME = os.getenv('MANDRILL_USERNAME'),
+    MAIL_PASSWORD = '0U8r8Fa5lBoqXGMgzwCm8A',
+    # MAIL_PASSWORD = os.getenv('MANDRILL_APIKEY'),
     MAIL_DEBUG = True
 )
-
-print app.config.get('MAIL_SERVER')
-print app.config.get('MAIL_PORT')
-print app.config.get('MAIL_USERNAME')
-print app.config.get('MAIL_PASSWORD')
 
 @app.route('/incoming/email', methods=['POST'])
 def mail_receive():
