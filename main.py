@@ -7,27 +7,15 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-# import os
+import os
 from flask import Flask, request, make_response
 from utils import make_profile
-# from flask_mail import Mail, Message
 import mandrill
 
 app = Flask(__name__)
 # mail = Mail(app)
 
 app.debug = True
-
-# app.config.update(
-#     MAIL_SERVER = 'smtp.mandrillapp.com',
-#     MAIL_PORT = 465,
-#     MAIL_USE_SSL = True,
-#     MAIL_USERNAME = 'app17157822@heroku.com',
-#     # MAIL_USERNAME = os.getenv('MANDRILL_USERNAME'),
-#     MAIL_PASSWORD = '0U8r8Fa5lBoqXGMgzwCm8A',
-#     # MAIL_PASSWORD = os.getenv('MANDRILL_APIKEY'),
-#     MAIL_DEBUG = True
-# )
 
 @app.route('/incoming/email', methods=['POST'])
 def mail_receive():
@@ -42,7 +30,7 @@ def mail_receive():
         if status == 'KO':
             return make_response('Something bad happened : %s' % resp, 500)
         elif status == 'OK':
-            mandrill_client = mandrill.Mandrill('0U8r8Fa5lBoqXGMgzwCm8A')
+            mandrill_client = mandrill.Mandrill(os.getenv('MANDRILL_APIKEY'))
             message = {
                 'from_email': 'alexandre@bulte.net',
                 'from_name': 'Mail Elevation Team (Alexandre B.)',
@@ -51,9 +39,7 @@ def mail_receive():
                 'subject': 'Your ASCII elevation profile',
                 'to': [{'email': mfrom}]
             }
-            result = mandrill_client.messages.send(message=message)
-            app.logger.debug(result)
-
+            mandrill_client.messages.send(message=message)
     else:
         return make_response('Missing sender or attached file', 400)
 
@@ -69,7 +55,7 @@ def index():
 and you'll receive the elevation profile in reply.</p>
 
 <p>Elevations are fetched from the 
-<a href="https://developers.google.com/maps/documentation/elevation/">Google Evelation API</a>, 
+<a href="https://developers.google.com/maps/documentation/elevation/">Google Elevation API</a>, 
 whether your GPX contains elevation info or not.</p>
 
 <p>Currently, only tracks (not routes) are processed from GPX file.</p>
