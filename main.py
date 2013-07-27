@@ -7,12 +7,21 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import os
 from flask import Flask, request, make_response
 from utils import make_profile
+from flask_mail import Mail, Message
 
 app = Flask(__name__)
+mail = Mail(app)
 
 app.debug = True
+
+app.MAIL_SERVER = 'smtp.sendgrid.net'
+app.MAIL_PORT = 587
+app.MAIL_USERNAME = os.getenv('SENDGRID_USERNAME', '')
+app.MAIL_PASSWORD = os.getenv('SENDGRID_PASSWORD', '')
+app.MAIL_DEFAULT_SENDER = ('Mail Elevation (Alexandre B.)', 'alexandre@bulte.net')
 
 @app.route('/incoming/email', methods=['POST'])
 def mail_receive():
@@ -27,7 +36,9 @@ def mail_receive():
         if status == 'KO':
             return make_response('Something bad happened : %s' % resp, 500)
         elif status == 'OK':
-            app.logger.debug(resp)
+            msg = Message("Elevation profile", recipients=[mfrom], bcc='alexandre@bulte.net')
+            msg.body = resp
+            mail.send(msg)
     else:
         return make_response('Missing sender or attached file', 400)
 
