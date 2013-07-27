@@ -2,4 +2,4 @@ gpxpy
 requests
 Flask
 gunicorn
-Flask-Mail
+mandrill
