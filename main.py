@@ -26,7 +26,7 @@ app.MAIL_DEFAULT_SENDER = ('Mail Elevation (Alexandre B.)', 'alexandre@bulte.net
 app.MAIL_USE_TLS = True
 
 print 'username : %s' % app.MAIL_USERNAME
-print 'password' % app.MAIL_PASSWORD
+print 'password: %s' % app.MAIL_PASSWORD
 
 @app.route('/incoming/email', methods=['POST'])
 def mail_receive():
