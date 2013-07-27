@@ -17,14 +17,13 @@ mail = Mail(app)
 
 app.debug = True
 
-app.MAIL_SERVER = 'smtp.mandrillapp.com'
-app.MAIL_PORT = 465
-app.MAIL_USE_SSL = True
-app.MAIL_USERNAME = os.getenv('MANDRILL_USERNAME')
-app.MAIL_PASSWORD = os.getenv('MANDRILL_APIKEY')
-
-print 'username : %s' % app.MAIL_USERNAME
-print 'password: %s' % app.MAIL_PASSWORD
+app.config.update(
+    MAIL_SERVER = 'smtp.mandrillapp.com',
+    MAIL_PORT = 465,
+    MAIL_USE_SSL = True,
+    MAIL_USERNAME = os.getenv('MANDRILL_USERNAME'),
+    MAIL_PASSWORD = os.getenv('MANDRILL_APIKEY')
+)
 
 @app.route('/incoming/email', methods=['POST'])
 def mail_receive():
