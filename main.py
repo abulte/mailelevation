@@ -18,7 +18,8 @@ def mail_receive():
     app.logger.info(request.form)
     app.logger.info(request.files)
     
-    mfrom = request.form['headers'].get('From', False)
+    mfrom = request.form.get('headers', False)
+    # .get('From', False)
     app.logger.debug(mfrom)
     # app.logger.debug(request.files.get('attachments'))
     # if request.files.get('attachments', False):
