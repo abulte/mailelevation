@@ -18,10 +18,15 @@ mail = Mail(app)
 app.debug = True
 
 app.MAIL_SERVER = 'smtp.sendgrid.net'
-app.MAIL_PORT = 587
+app.MAIL_PORT = 465
+app.MAIL_USE_SSL = True
 app.MAIL_USERNAME = os.getenv('SENDGRID_USERNAME', '')
 app.MAIL_PASSWORD = os.getenv('SENDGRID_PASSWORD', '')
 app.MAIL_DEFAULT_SENDER = ('Mail Elevation (Alexandre B.)', 'alexandre@bulte.net')
+app.MAIL_USE_TLS = True
+
+print 'username : %s' % app.MAIL_USERNAME
+print 'password' % app.MAIL_PASSWORD
 
 @app.route('/incoming/email', methods=['POST'])
 def mail_receive():
