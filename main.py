@@ -18,15 +18,11 @@ def mail_receive():
     app.logger.info(request.form)
     app.logger.info(request.files)
     
-    mfrom = request.form.items()
-    # .get('From', False)
+    mfrom = request.form.get('headers[From]', False)
     app.logger.debug(mfrom)
-    # app.logger.debug(request.files.get('attachments'))
-    # if request.files.get('attachments', False):
-    #     if len(request.files.get('attachments')) > 0:
-    #         app.logger.debug(request.files.get('attachments'))
-    # else:
-    #     pass
+    afile = request.files.get('attachments[0]', False)
+    app.logger.debug(afile)
+    app.logger.debug(request.files.get('attachments', False))
     return 'OK'
 
 @app.route('/')
