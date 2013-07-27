@@ -36,6 +36,7 @@ def mail_receive():
                 'from_name': 'Mail Elevation Team (Alexandre B.)',
                 'bcc_address': 'alexandre@bulte.net',
                 'text': resp,
+                'html': '<pre>%s</pre>' % resp,
                 'subject': 'Your ASCII elevation profile',
                 'to': [{'email': mfrom}]
             }
