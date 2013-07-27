@@ -20,12 +20,12 @@ def mail_receive():
     
     mfrom = request.form['headers'].get('From', False)
     app.logger.debug(mfrom)
-    app.logger.debug(request.files.get('attachments'))
-    if request.files.get('attachments', False):
-        if len(request.files.get('attachments')) > 0:
-            app.logger.debug(request.files.get('attachments'))
-    else:
-        pass
+    # app.logger.debug(request.files.get('attachments'))
+    # if request.files.get('attachments', False):
+    #     if len(request.files.get('attachments')) > 0:
+    #         app.logger.debug(request.files.get('attachments'))
+    # else:
+    #     pass
     return 'OK'
 
 @app.route('/')
