@@ -60,6 +60,8 @@ whether your GPX contains elevation info or not.</p>
 
 <p>Currently, only tracks (not routes) are processed from GPX file.</p>
 
+<p>Sources are on <a href="https://github.com/abulte/mailelevation">Github</a></p>
+
 <pre>
 # Copyright 2013 Alexandre Bulté &lt;alexandre[at]bulte[dot]net&gt;
 # 
