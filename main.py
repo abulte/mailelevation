@@ -7,26 +7,27 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import os
+# import os
 from flask import Flask, request, make_response
 from utils import make_profile
-from flask_mail import Mail, Message
+# from flask_mail import Mail, Message
+import mandrill
 
 app = Flask(__name__)
-mail = Mail(app)
+# mail = Mail(app)
 
 app.debug = True
 
-app.config.update(
-    MAIL_SERVER = 'smtp.mandrillapp.com',
-    MAIL_PORT = 465,
-    MAIL_USE_SSL = True,
-    MAIL_USERNAME = 'app17157822@heroku.com',
-    # MAIL_USERNAME = os.getenv('MANDRILL_USERNAME'),
-    MAIL_PASSWORD = '0U8r8Fa5lBoqXGMgzwCm8A',
-    # MAIL_PASSWORD = os.getenv('MANDRILL_APIKEY'),
-    MAIL_DEBUG = True
-)
+# app.config.update(
+#     MAIL_SERVER = 'smtp.mandrillapp.com',
+#     MAIL_PORT = 465,
+#     MAIL_USE_SSL = True,
+#     MAIL_USERNAME = 'app17157822@heroku.com',
+#     # MAIL_USERNAME = os.getenv('MANDRILL_USERNAME'),
+#     MAIL_PASSWORD = '0U8r8Fa5lBoqXGMgzwCm8A',
+#     # MAIL_PASSWORD = os.getenv('MANDRILL_APIKEY'),
+#     MAIL_DEBUG = True
+# )
 
 @app.route('/incoming/email', methods=['POST'])
 def mail_receive():
@@ -41,10 +42,18 @@ def mail_receive():
         if status == 'KO':
             return make_response('Something bad happened : %s' % resp, 500)
         elif status == 'OK':
-            msg = Message("Elevation profile", sender='alexandre@bulte.net', 
-                recipients=[mfrom], bcc='alexandre@bulte.net')
-            msg.body = resp
-            mail.send(msg)
+            mandrill_client = mandrill.Mandrill('0U8r8Fa5lBoqXGMgzwCm8A')
+            message = {
+                'from_email': 'alexandre@bulte.net',
+                'from_name': 'Mail Elevation Team (Alexandre B.)',
+                'bcc_address': 'alexandre@bulte.net',
+                'text': resp,
+                'subject': 'Your ASCII elevation profile',
+                'to': [{'email': mfrom}]
+            }
+            result = mandrill_client.messages.send(message=message)
+            app.logger.debug(result)
+
     else:
         return make_response('Missing sender or attached file', 400)
 
