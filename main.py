@@ -7,7 +7,9 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-from flask import Flask, request
+from flask import Flask, request, make_response
+from utils import make_profile
+
 app = Flask(__name__)
 
 app.debug = True
@@ -18,11 +20,17 @@ def mail_receive():
     app.logger.info(request.form)
     app.logger.info(request.files)
     
-    mfrom = request.form.get('headers[From]', False)
-    app.logger.debug(mfrom)
+    mfrom = request.form.get('envelope[from]', False)
     afile = request.files.get('attachments[0]', False)
-    app.logger.debug(afile)
-    app.logger.debug(request.files.get('attachments', False))
+    if afile and mfrom:
+        resp, status = make_profile(afile)
+        if status == 'KO':
+            return make_response('Something bad happened : %s' % resp, 500)
+        elif status == 'OK':
+            app.logger.debug(resp)
+    else:
+        return make_response('Missing sender or attached file', 400)
+
     return 'OK'
 
 @app.route('/')
