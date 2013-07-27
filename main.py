@@ -25,6 +25,8 @@ app.config.update(
     MAIL_PASSWORD = os.getenv('MANDRILL_APIKEY')
 )
 
+print app.config.get('MAIL_SERVER')
+
 @app.route('/incoming/email', methods=['POST'])
 def mail_receive():
     app.logger.info('-- Received incoming email --')
