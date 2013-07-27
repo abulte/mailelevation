@@ -85,7 +85,8 @@ def make_profile(gpx_file):
     emin = min(elevations)
     emax = max(elevations)
 
-    res = "MIN : %s" % emin
+    res = ''
+    res += _res("MIN : %s" % emin)
     res += _res("MAX : %s" % emax)
     res += _res("TOTAL : %s" % (emax - emin))
 
@@ -93,9 +94,10 @@ def make_profile(gpx_file):
     alt_prev = elevations[0]
     for e in elevations:
         if e - alt_prev > 0:
-            d_pos += e - alt_prev
+            d_pos += (e - alt_prev)
         elif e - alt_prev < 0:
-            d_neg += e - alt_prev
+            d_neg += (e - alt_prev)
+        alt_prev = e
 
     res += _res("POSITIF CUM. : %s" % d_pos)
     res += _res("NEGATIF CUM. : %s" % d_neg)
