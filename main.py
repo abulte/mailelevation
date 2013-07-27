@@ -15,7 +15,7 @@ app.debug = True
 @app.route('/incoming/email', methods=['POST'])
 def mail_receive():
     app.logger.info('-- Received incoming email --')
-    app.logger.info(request.form['headers'])
+    app.logger.info(request.form)
     app.logger.info(request.files)
     
     mfrom = request.form['headers'].get('From', False)
