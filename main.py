@@ -23,6 +23,7 @@ app.config.update(
     MAIL_USE_SSL = True,
     MAIL_USERNAME = os.getenv('MANDRILL_USERNAME'),
     MAIL_PASSWORD = os.getenv('MANDRILL_APIKEY'),
+    MAIL_DEBUG = True
 )
 
 print app.config.get('MAIL_SERVER')
