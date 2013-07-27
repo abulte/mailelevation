@@ -22,10 +22,13 @@ app.config.update(
     MAIL_PORT = 465,
     MAIL_USE_SSL = True,
     MAIL_USERNAME = os.getenv('MANDRILL_USERNAME'),
-    MAIL_PASSWORD = os.getenv('MANDRILL_APIKEY')
+    MAIL_PASSWORD = os.getenv('MANDRILL_APIKEY'),
 )
 
 print app.config.get('MAIL_SERVER')
+print app.config.get('MAIL_PORT')
+print app.config.get('MAIL_USERNAME')
+print app.config.get('MAIL_PASSWORD')
 
 @app.route('/incoming/email', methods=['POST'])
 def mail_receive():
