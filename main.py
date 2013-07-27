@@ -1,9 +1,11 @@
-from flask import Flask
+from flask import Flask, request
 app = Flask(__name__)
 
-@app.route('/target/200', methods=['POST'])
+@app.route('/incoming/email', methods=['POST'])
 def mail_receive():
-    return 'Hello World!'
+    app.logger.info(request.form)
+    app.logger.info(request.files)
+    return 'OK'
 
 @app.route('/')
 def index():
