@@ -11,7 +11,6 @@ import gpxpy
 import gpxpy.gpx
 import requests
 import math
-import sys
 import pickle
 import hashlib
 import os
@@ -24,11 +23,6 @@ ge_params = {
 
 GE_API_ENDPOINT = 'http://maps.googleapis.com/maps/api/elevation/json'
 GE_URL = '%s?sensor=%s&path=' % (GE_API_ENDPOINT, ge_params['sensor'])
-
-# gpx_file = open('/Users/alexandre/Dropbox/_Home_/Cartes et circuits/boucle-vtt.gpx', 'r')
-gpx_file = open('/Users/alexandre/Dropbox/_Home_/Cartes et circuits/Circuits/Montagne/530.gpx', 'r')
-# gpx_file = open('/Users/alexandre/Dropbox/_Home_/Cartes et circuits/Circuits/CAP/trail-corn-16k.gpx', 'r')
-
 
 def _get_points(gpx):
     for track in gpx.tracks:
@@ -146,4 +140,7 @@ def make_profile(gpx_file):
     return res, 'OK'
 
 if __name__ == '__main__':
+    # gpx_file = open('/Users/alexandre/Dropbox/_Home_/Cartes et circuits/boucle-vtt.gpx', 'r')
+    gpx_file = open('/Users/alexandre/Dropbox/_Home_/Cartes et circuits/Circuits/Montagne/530.gpx', 'r')
+    # gpx_file = open('/Users/alexandre/Dropbox/_Home_/Cartes et circuits/Circuits/CAP/trail-corn-16k.gpx', 'r')
     print make_profile(gpx_file)
