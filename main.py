@@ -17,13 +17,11 @@ mail = Mail(app)
 
 app.debug = True
 
-app.MAIL_SERVER = 'smtp.sendgrid.net'
+app.MAIL_SERVER = 'smtp.mandrillapp.com'
 app.MAIL_PORT = 465
 app.MAIL_USE_SSL = True
-app.MAIL_USERNAME = os.getenv('SENDGRID_USERNAME', '')
-app.MAIL_PASSWORD = os.getenv('SENDGRID_PASSWORD', '')
-app.MAIL_DEFAULT_SENDER = ('Mail Elevation (Alexandre B.)', 'alexandre@bulte.net')
-app.MAIL_USE_TLS = True
+app.MAIL_USERNAME = os.getenv('MANDRILL_USERNAME')
+app.MAIL_PASSWORD = os.getenv('MANDRILL_APIKEY')
 
 print 'username : %s' % app.MAIL_USERNAME
 print 'password: %s' % app.MAIL_PASSWORD
