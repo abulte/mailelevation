@@ -68,6 +68,10 @@ def index():
 <a href="mailto:b29d062265b9b6b211c0@cloudmailin.net">b29d062265b9b6b211c0@cloudmailin.net</a>, 
 and you'll receive the elevation profile in reply.</p>
 
+<p>Elevations are fetched from the 
+<a href="https://developers.google.com/maps/documentation/elevation/">Google Evelation API</a>, 
+whether your GPX contains elevation info or not.</p>
+
 <p>Currently, only tracks (not routes) are processed from GPX file.</p>
 
 <pre>
