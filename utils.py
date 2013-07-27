@@ -116,7 +116,10 @@ def make_profile(gpx_file):
     res += _res('One * is %s meters.' % scale)
     scaled_means = []
     for i in xrange(0, len(elevations), split_size):
-        mean = sum(elevations[i:i+split_size]) / float(split_size)
+        if i + split_size <= len(elevations):
+            mean = sum(elevations[i:i+split_size]) / float(split_size)
+        else:
+            mean = sum(elevations[i:len(elevations)]) / float(len(elevations) - i)
         scaled_means.append(int(mean/scale))
 
     matrix = []
@@ -143,6 +146,7 @@ def make_profile(gpx_file):
 
 if __name__ == '__main__':
     # gpx_file = open('/Users/alexandre/Dropbox/_Home_/Cartes et circuits/boucle-vtt.gpx', 'r')
-    gpx_file = open('/Users/alexandre/Dropbox/_Home_/Cartes et circuits/Circuits/Montagne/530.gpx', 'r')
+    gpx_file = open('/Users/alexandre/Dropbox/_Home_/Cartes et circuits/Circuits/Montagne/exp_Jausiers Larche 1-3 VTT.gpx', 'r')
     # gpx_file = open('/Users/alexandre/Dropbox/_Home_/Cartes et circuits/Circuits/CAP/trail-corn-16k.gpx', 'r')
-    print make_profile(gpx_file)
+    res, status = make_profile(gpx_file)
+    print res
