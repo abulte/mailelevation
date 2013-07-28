@@ -30,8 +30,7 @@ def mail_receive():
     if afile and mfrom:
         if 'width:' in msubject:
             width = msubject.split('width:')[1]
-            width = width.split(' ')[0]
-            app.logger.debug(width)
+            width = int(width.split(' ')[0])
         else:
             width = False
         resp, status = make_profile(afile, width)
