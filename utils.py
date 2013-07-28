@@ -108,6 +108,7 @@ def make_profile(gpx_file, width=80):
     # -5 is for altitude show (4 figures + space)
     if not isinstance(width, int):
         width = 80
+    print 'width : ' + width
     HEIGHT = 50
     if len(results) > (width-5):
         split_size = len(results) / (width-5)
