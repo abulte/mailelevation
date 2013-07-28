@@ -32,7 +32,7 @@ def mail_receive():
             width = msubject.split('width:')[1]
             width = int(width.split(' ')[0])
         else:
-            width = False
+            width = None
         resp, status = make_profile(afile, width)
         if status == 'KO':
             return make_response('Something bad happened : %s' % resp, 500)

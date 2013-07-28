@@ -106,9 +106,8 @@ def make_profile(gpx_file, width=80):
     # take average elevation for one split ?
     # chart is 80* large max et 50* high max
     # -5 is for altitude show (4 figures + space)
-    if not isinstance(width, int):
+    if width is None or not isinstance(width, int) or not width:
         width = 80
-    print 'width : ' + width
     HEIGHT = 50
     if len(results) > (width-5):
         split_size = len(results) / (width-5)
