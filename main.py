@@ -25,8 +25,16 @@ def mail_receive():
     
     mfrom = request.form.get('envelope[from]', False)
     afile = request.files.get('attachments[0]', False)
+    msubject = request.form.get('headers[Subject]', '')
+    app.logger.debug(msubject)
     if afile and mfrom:
-        resp, status = make_profile(afile)
+        if 'width:' in msubject:
+            width = msubject.split('width:')[1]
+            width = width.split(' ')[0]
+            app.logger.debug(width)
+        else:
+            width = False
+        resp, status = make_profile(afile, width)
         if status == 'KO':
             return make_response('Something bad happened : %s' % resp, 500)
         elif status == 'OK':

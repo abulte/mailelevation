@@ -48,7 +48,7 @@ def _get_data(points, url):
 def _res(line):
     return line + '\n'
 
-def make_profile(gpx_file):
+def make_profile(gpx_file, width=80):
     gpx_md5 = hashlib.md5(gpx_file.read()).hexdigest()
     gpx_file.seek(0)
 
@@ -106,9 +106,11 @@ def make_profile(gpx_file):
     # take average elevation for one split ?
     # chart is 80* large max et 50* high max
     # -5 is for altitude show (4 figures + space)
+    if width is None or not width or width.strip() == '':
+        width = 80
     HEIGHT = 50
-    if len(results) > (80-5):
-        split_size = len(results) / (80-5)
+    if len(results) > (width-5):
+        split_size = len(results) / (width-5)
     else:
         split_size = 1
     scale = emax / HEIGHT
